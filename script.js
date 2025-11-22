@@ -1,4 +1,4 @@
-// audio / orb / progress 要素
+// audio / orb
 const audios = Array.from(document.querySelectorAll("audio"));
 const orbs = Array.from(document.querySelectorAll(".sound-orb"));
 let currentAudio = null;
@@ -33,7 +33,7 @@ orbs.forEach(orb => {
     });
 });
 
-// timeupdate で進捗バー更新 & 再生終了処理
+// 再生位置に応じてバー更新 / 終了処理
 audios.forEach(audio => {
     audio.addEventListener("timeupdate", () => {
         const id = audio.id;
@@ -54,7 +54,7 @@ audios.forEach(audio => {
     });
 });
 
-// 進捗バークリックでシーク
+// 進捗バークリックでシーク（＆必要なら再生開始）
 const progressBars = Array.from(document.querySelectorAll(".sound-progress"));
 
 progressBars.forEach(bar => {
