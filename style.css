@@ -6,7 +6,6 @@
     padding: 0;
 }
 
-/* 横スクロール防止 */
 body {
     min-height: 100vh;
     background: radial-gradient(circle at top, #222 0%, #050508 60%, #000 100%);
@@ -14,7 +13,6 @@ body {
     overflow-x: hidden;
 }
 
-/* 中央キャンバス */
 .canvas {
     width: 100%;
     max-width: 880px;
@@ -25,52 +23,50 @@ body {
     gap: 28px;
 }
 
-/* 日付の行 */
+/* 会話の開始日 */
 .conversation-date {
     align-self: center;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.65);
-    padding: 4px 10px;
+    color: rgba(255,255,255,0.75);
+    padding: 6px 14px;
     border-radius: 999px;
     background: rgba(0,0,0,0.45);
     box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
 
-/* 各ペア（写真＋音） */
+/* 1ペア（写真＋音） */
 .pair {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     padding: 4px 0 12px;
 }
 
-/* 左右のメッセージ行（アイコン＋バブル） */
+/* 吹き出し行 */
 .message-row {
     display: flex;
     align-items: flex-end;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* 相手（左） */
 .message-row-left {
     justify-content: flex-start;
 }
 
-/* 自分（右） */
 .message-row-right {
     justify-content: flex-end;
 }
 
-/* アイコン */
+/* アイコンを大きめに（44px） */
 .avatar {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     overflow: hidden;
     background: #111;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.7);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.75);
 }
 
 .avatar img {
@@ -79,27 +75,40 @@ body {
     object-fit: cover;
 }
 
-/* メッセージ本体 */
+/* メッセージ囲い */
 .message {
     max-width: 76%;
     position: relative;
 }
 
-/* 写真ブロック（相手） */
+/* 左側ラッパー */
+.message-wrapper-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* 右側ラッパー */
+.message-wrapper-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 写真ブロック */
 .photo-wrapper {
     position: relative;
     overflow: hidden;
     border-radius: 18px 18px 18px 6px;
     border: 1px solid rgba(255,255,255,0.08);
     box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-    cursor: pointer;
     background: black;
     width: 100%;
     max-width: 420px;
+    cursor: pointer;
 }
 
 .photo {
-    display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -113,57 +122,46 @@ body {
     filter: saturate(1.2) contrast(1.06) brightness(1.02);
 }
 
-/* 音ブロック（自分） */
+/* 音声の吹き出し */
 .message-sound .sound-wrapper {
     position: relative;
-    padding: 14px 16px 18px;
+    padding: 16px 18px 20px;
     border-radius: 18px 6px 18px 18px;
-    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.09), rgba(0,0,0,0.9));
-    box-shadow: 0 12px 26px rgba(0,0,0,0.8);
+    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.10), rgba(0,0,0,0.92));
+    box-shadow: 0 12px 28px rgba(0,0,0,0.82);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
-    width: 100%;
+    gap: 16px;
     max-width: 320px;
 }
 
-/* オーブ（再生ボタン） */
+/* オーブ */
 .sound-orb {
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     border-radius: 999px;
-    border: none;
     background: radial-gradient(circle at 30% 20%, #ffffff, #9aa5ff, #3434aa);
-    box-shadow:
-        0 0 0 0 rgba(134,182,255,0.6),
-        0 16px 30px rgba(0,0,0,0.7);
+    border: none;
     cursor: pointer;
     position: relative;
     display: grid;
     place-items: center;
-    outline: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow:
+        0 0 0 0 rgba(134,182,255,0.6),
+        0 16px 32px rgba(0,0,0,0.75);
+    transition: transform 0.2s ease;
 }
 
 .sound-orb:hover {
-    transform: translateY(-2px) scale(1.03);
-    filter: brightness(1.05);
-    box-shadow:
-        0 0 0 0 rgba(134,182,255,0.7),
-        0 20px 36px rgba(0,0,0,0.85);
-}
-
-.sound-orb:active {
-    transform: translateY(0) scale(0.97);
+    transform: translateY(-3px) scale(1.04);
 }
 
 .orb-core {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     border-radius: inherit;
     background: radial-gradient(circle at 30% 20%, #ffffff, #bcc6ff, #6c63ff);
-    box-shadow: 0 0 20px rgba(255,255,255,0.9);
 }
 
 .orb-ring {
@@ -185,66 +183,40 @@ body {
     animation: ringWave 1.8s ease-out infinite;
 }
 
-/* 進捗バー（シーク可） */
+/* 進行バー */
 .sound-progress {
     width: 100%;
     height: 4px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.14);
-    overflow: hidden;
-    position: relative;
+    background: rgba(255,255,255,0.18);
     cursor: pointer;
-}
-
-.sound-progress::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg,
-        rgba(255,255,255,0.0),
-        rgba(255,255,255,0.2),
-        rgba(255,255,255,0.0)
-    );
-    opacity: 0.5;
-    pointer-events: none;
+    position: relative;
 }
 
 .sound-progress-fill {
     height: 100%;
     width: 0%;
-    border-radius: inherit;
     background: linear-gradient(90deg, #8fd1ff, #b0b8ff, #ffb5f9);
-    transition: width 0.05s linear;
 }
 
-/* 時刻ラベル（バブル内） */
-.bubble-time {
-    position: absolute;
-    bottom: 4px;
-    font-size: 9px;
-    color: rgba(255,255,255,0.7);
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+/* ◆ 時刻（外側）のサイズ拡大：12px ◆ */
+.bubble-time-outside {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 6px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
 }
 
-.bubble-time-right {
-    right: 8px;
+/* 相手（左） → 時刻をバブルの右下外側へ */
+.bubble-time-outside-right {
+    align-self: flex-end;
+    padding-right: 8px;
 }
 
-.bubble-time-left {
-    left: 10px;
-}
-
-/* オーブアニメーション */
-@keyframes orbPulse {
-    0%   { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(134,182,255,0.7), 0 18px 40px rgba(0,0,0,0.8); }
-    50%  { transform: scale(1.05); box-shadow: 0 0 0 14px rgba(134,182,255,0.0), 0 24px 48px rgba(0,0,0,0.95); }
-    100% { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(134,182,255,0.0), 0 18px 40px rgba(0,0,0,0.8); }
-}
-
-@keyframes ringWave {
-    0%   { opacity: 0.0; transform: scale(0.75); }
-    15%  { opacity: 0.9; }
-    100% { opacity: 0.0; transform: scale(1.25); }
+/* 自分（右） → 時刻をバブルの左下外側へ */
+.bubble-time-outside-left {
+    align-self: flex-start;
+    padding-left: 10px;
 }
 
 /* 画像モーダル */
@@ -257,61 +229,33 @@ body {
     z-index: 50;
 }
 
+.image-modal.open {
+    display: flex;
+}
+
 .image-modal-backdrop {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(0,0,0,0.95));
     backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
 }
 
 .image-modal img {
-    position: relative;
     max-width: 92vw;
     max-height: 86vh;
     border-radius: 22px;
     box-shadow: 0 26px 70px rgba(0,0,0,0.9);
-    object-fit: contain;
-    transform: scale(0.96);
-    opacity: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition: 0.25s ease;
 }
 
-.image-modal.open {
-    display: flex;
-}
-
-.image-modal.open img {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* スマホ用微調整 */
+/* スマホ調整 */
 @media (max-width: 768px) {
-    .canvas {
-        padding: 24px 10px 36px;
-        gap: 22px;
-    }
-
-    .message {
-        max-width: 84%;
-    }
-
-    .photo-wrapper {
-        max-width: 100%;
-    }
-
-    .message-sound .sound-wrapper {
-        max-width: 280px;
-    }
-
-    .sound-orb {
-        width: 90px;
-        height: 90px;
-    }
-
     .avatar {
-        width: 28px;
-        height: 28px;
+        width: 40px;
+        height: 40px;
+    }
+    .bubble-time-outside {
+        font-size: 11px;
     }
 }
+
