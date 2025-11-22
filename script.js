@@ -1,18 +1,18 @@
-// すべての <audio> 要素を取得
+// すべての audio / オーブ / プログレスを取得
 const audios = Array.from(document.querySelectorAll("audio"));
 const orbs = Array.from(document.querySelectorAll(".sound-orb"));
 const progressFills = Array.from(document.querySelectorAll(".sound-progress-fill"));
 
-// 再生中の audio を管理
 let currentAudio = null;
 
-// オーブクリックで再生/停止
+// オーブクリック：再生/一時停止
 orbs.forEach(orb => {
     orb.addEventListener("click", () => {
         const id = orb.getAttribute("data-audio");
         const audio = document.getElementById(id);
+        if (!audio) return;
 
-        // すでにこの audio が再生中なら停止
+        // 同じ音が再生中なら一時停止
         if (currentAudio === audio && !audio.paused) {
             audio.pause();
             orb.classList.remove("playing");
@@ -28,14 +28,14 @@ orbs.forEach(orb => {
         });
         orbs.forEach(o => o.classList.remove("playing"));
 
-        // 再生開始
+        // 再生
         audio.play();
         currentAudio = audio;
         orb.classList.add("playing");
     });
 });
 
-// 時間更新でプログレスバーを進める
+// 再生位置にあわせてバーを更新
 audios.forEach(audio => {
     audio.addEventListener("timeupdate", () => {
         const id = audio.id;
@@ -44,35 +44,73 @@ audios.forEach(audio => {
 
         const ratio = audio.duration ? (audio.currentTime / audio.duration) : 0;
         fill.style.width = `${ratio * 100}%`;
+    });
 
-        // 再生完了時はアニメーションを止めておく
-        if (audio.ended) {
-            const orb = document.querySelector(`.sound-orb[data-audio="${id}"]`);
-            if (orb) orb.classList.remove("playing");
+    // 再生終了時：オーブのアニメーションを止める
+    audio.addEventListener("ended", () => {
+        const id = audio.id;
+        const orb = document.querySelector(`.sound-orb[data-audio="${id}"]`);
+        const fill = document.querySelector(`.sound-progress-fill[data-progress="${id}"]`);
+        if (orb) orb.classList.remove("playing");
+        if (fill) fill.style.width = "0%";
+        if (currentAudio === audio) currentAudio = null;
+    });
+});
+
+// 進捗バークリックでシーク（＋任意で再生開始）
+const progressBars = Array.from(document.querySelectorAll(".sound-progress"));
+
+progressBars.forEach(bar => {
+    bar.addEventListener("click", (event) => {
+        const audioId = bar.getAttribute("data-audio");
+        const audio = document.getElementById(audioId);
+        if (!audio || !audio.duration) return;
+
+        const rect = bar.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const ratio = Math.min(Math.max(clickX / rect.width, 0), 1);
+
+        audio.currentTime = audio.duration * ratio;
+
+        // バー即時更新
+        const fill = document.querySelector(`.sound-progress-fill[data-progress="${audioId}"]`);
+        if (fill) {
+            fill.style.width = `${ratio * 100}%`;
+        }
+
+        // 停止中なら、その位置から再生も開始（不要ならこのブロック削除）
+        if (audio.paused) {
+            audios.forEach(a => {
+                if (a !== audio) {
+                    a.pause();
+                    a.currentTime = 0;
+                }
+            });
+            orbs.forEach(o => o.classList.remove("playing"));
+
+            audio.play();
+            const orb = document.querySelector(`.sound-orb[data-audio="${audioId}"]`);
+            if (orb) orb.classList.add("playing");
+            currentAudio = audio;
         }
     });
 });
 
-// 画像クリックでモーダル表示
+// 画像モーダル（拡大表示）
 const modal = document.getElementById("image-modal");
 const modalImage = document.getElementById("modal-image");
-const backdrop = modal.querySelector(".image-modal-backdrop");
 
 document.querySelectorAll(".photo-wrapper").forEach(wrapper => {
     wrapper.addEventListener("click", () => {
         const img = wrapper.querySelector("img");
+        if (!img) return;
         modalImage.src = img.src;
         modal.classList.add("open");
     });
 });
 
-// モーダル閉じる（背景クリックまたは画像クリック）
+// モーダル閉じる：どこをクリックしても閉じる
 modal.addEventListener("click", () => {
     modal.classList.remove("open");
     modalImage.src = "";
-});
-
-// 背景と画像以外へのクリックを拾わないようにする
-modalImage.addEventListener("click", (e) => {
-    e.stopPropagation();
 });
