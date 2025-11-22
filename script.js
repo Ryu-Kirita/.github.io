@@ -1,18 +1,16 @@
-// すべての audio / オーブ / プログレスを取得
+// audio / orb / progress 要素
 const audios = Array.from(document.querySelectorAll("audio"));
 const orbs = Array.from(document.querySelectorAll(".sound-orb"));
-const progressFills = Array.from(document.querySelectorAll(".sound-progress-fill"));
-
 let currentAudio = null;
 
-// オーブクリック：再生/一時停止
+// オーブクリックで再生 / 一時停止
 orbs.forEach(orb => {
     orb.addEventListener("click", () => {
         const id = orb.getAttribute("data-audio");
         const audio = document.getElementById(id);
         if (!audio) return;
 
-        // 同じ音が再生中なら一時停止
+        // 同じものが再生中なら一時停止
         if (currentAudio === audio && !audio.paused) {
             audio.pause();
             orb.classList.remove("playing");
@@ -35,7 +33,7 @@ orbs.forEach(orb => {
     });
 });
 
-// 再生位置にあわせてバーを更新
+// timeupdate で進捗バー更新 & 再生終了処理
 audios.forEach(audio => {
     audio.addEventListener("timeupdate", () => {
         const id = audio.id;
@@ -46,7 +44,6 @@ audios.forEach(audio => {
         fill.style.width = `${ratio * 100}%`;
     });
 
-    // 再生終了時：オーブのアニメーションを止める
     audio.addEventListener("ended", () => {
         const id = audio.id;
         const orb = document.querySelector(`.sound-orb[data-audio="${id}"]`);
@@ -57,7 +54,7 @@ audios.forEach(audio => {
     });
 });
 
-// 進捗バークリックでシーク（＋任意で再生開始）
+// 進捗バークリックでシーク
 const progressBars = Array.from(document.querySelectorAll(".sound-progress"));
 
 progressBars.forEach(bar => {
@@ -72,13 +69,12 @@ progressBars.forEach(bar => {
 
         audio.currentTime = audio.duration * ratio;
 
-        // バー即時更新
         const fill = document.querySelector(`.sound-progress-fill[data-progress="${audioId}"]`);
         if (fill) {
             fill.style.width = `${ratio * 100}%`;
         }
 
-        // 停止中なら、その位置から再生も開始（不要ならこのブロック削除）
+        // 停止中なら、その位置から再生開始
         if (audio.paused) {
             audios.forEach(a => {
                 if (a !== audio) {
@@ -96,7 +92,7 @@ progressBars.forEach(bar => {
     });
 });
 
-// 画像モーダル（拡大表示）
+// 画像モーダル
 const modal = document.getElementById("image-modal");
 const modalImage = document.getElementById("modal-image");
 
@@ -109,7 +105,7 @@ document.querySelectorAll(".photo-wrapper").forEach(wrapper => {
     });
 });
 
-// モーダル閉じる：どこをクリックしても閉じる
+// モーダルをクリックで閉じる
 modal.addEventListener("click", () => {
     modal.classList.remove("open");
     modalImage.src = "";
