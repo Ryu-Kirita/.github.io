@@ -6,152 +6,140 @@
     padding: 0;
 }
 
-/* 背景全体 */
+/* 横スクロールを強制的に消す */
 body {
     min-height: 100vh;
     background: radial-gradient(circle at top, #222 0%, #050508 60%, #000 100%);
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
+    display: block;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    overflow-x: hidden;
 }
 
 /* 中央のキャンバス */
 .canvas {
     width: 100%;
-    max-width: 1100px;
-    padding: 40px 16px 60px;
+    max-width: 880px;           /* 画面中央の幅 */
+    margin: 0 auto;
+    padding: 32px 12px 48px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 28px;
 }
 
 /* 各「会話」全体 */
 .pair {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 18px 10px 26px;
+    gap: 10px;
+    padding: 10px 0 18px;
     position: relative;
 }
 
-/* メッセージ共通 */
+/* SNSのメッセージ風ボックス */
 .message {
-    max-width: 70%;
+    max-width: 76%;
     position: relative;
     z-index: 1;
 }
 
-/* 左側（写真）メッセージ */
+/* 左（写真） */
 .message-left {
     align-self: flex-start;
-    margin-left: 6px;
+    margin-left: 4px;
 }
 
-/* 右側（音）メッセージ */
+/* 右（音） */
 .message-right {
     align-self: flex-end;
-    margin-right: 6px;
-    margin-top: 6px; /* 少し下げて返信っぽく */
+    margin-right: 4px;
+    margin-top: 4px; /* 少し下げて返信っぽく */
 }
 
-/* 写真の枠 */
+/* 写真ブロック：サイズ制限あり */
 .photo-wrapper {
     position: relative;
     overflow: hidden;
-    border-radius: 20px 20px 20px 6px;
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 10px 35px rgba(0,0,0,0.7);
+    border-radius: 18px 18px 18px 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.7);
     cursor: pointer;
-    isolation: isolate;
     background: black;
+    width: 100%;
+    max-width: 420px;           /* ここで最大幅を制限 */
 }
 
 .photo {
     display: block;
-    width: 100%;
+    width: 100%;               /* ラッパーにフィット */
     height: auto;
     object-fit: cover;
-    transform: scale(1.02);
-    transition: transform 0.9s ease, filter 0.9s ease, opacity 0.9s ease;
-    filter: saturate(1.1) contrast(1.02);
-}
-
-.photo-wrapper::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 0 100%, rgba(255,255,255,0.18), transparent 55%);
-    mix-blend-mode: soft-light;
-    opacity: 0.0;
-    transition: opacity 0.9s ease;
+    transform: scale(1.01);
+    transition: transform 0.6s ease, filter 0.6s ease;
+    filter: saturate(1.05) contrast(1.02);
 }
 
 .photo-wrapper:hover .photo {
-    transform: scale(1.05);
-    filter: saturate(1.25) contrast(1.06) brightness(1.02);
+    transform: scale(1.04);
+    filter: saturate(1.2) contrast(1.06) brightness(1.02);
 }
 
-.photo-wrapper:hover::after {
-    opacity: 1;
-}
-
-/* 音メッセージのバブル */
+/* 音メッセージの箱 */
 .message-sound .sound-wrapper {
-    padding: 16px 18px 14px;
-    border-radius: 20px 6px 20px 20px;
-    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.08), rgba(0,0,0,0.88));
-    box-shadow: 0 16px 32px rgba(0,0,0,0.75);
+    padding: 14px 16px 14px;
+    border-radius: 18px 6px 18px 18px;
+    background: radial-gradient(circle at 0 0, rgba(255,255,255,0.09), rgba(0,0,0,0.9));
+    box-shadow: 0 12px 26px rgba(0,0,0,0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 14px;
+    width: 100%;
+    max-width: 320px;           /* 音ブロックの最大幅 */
 }
 
 /* オーブ（再生ボタン） */
 .sound-orb {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 999px;
     border: none;
     background: radial-gradient(circle at 30% 20%, #ffffff, #9aa5ff, #3434aa);
     box-shadow:
         0 0 0 0 rgba(134,182,255,0.6),
-        0 18px 40px rgba(0,0,0,0.7);
+        0 16px 30px rgba(0,0,0,0.7);
     cursor: pointer;
     position: relative;
     display: grid;
     place-items: center;
     outline: none;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .sound-orb:hover {
-    transform: translateY(-3px) scale(1.03);
+    transform: translateY(-2px) scale(1.03);
     filter: brightness(1.05);
     box-shadow:
         0 0 0 0 rgba(134,182,255,0.7),
-        0 24px 50px rgba(0,0,0,0.85);
+        0 20px 36px rgba(0,0,0,0.85);
 }
 
 .sound-orb:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.97);
 }
 
-/* 中心核 */
+/* 中心核・リング */
 .orb-core {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: inherit;
     background: radial-gradient(circle at 30% 20%, #ffffff, #bcc6ff, #6c63ff);
-    box-shadow: 0 0 26px rgba(255,255,255,0.9);
+    box-shadow: 0 0 20px rgba(255,255,255,0.9);
 }
 
-/* 外側リング */
 .orb-ring {
     position: absolute;
-    width: 160%;
-    height: 160%;
+    width: 150%;
+    height: 150%;
     border-radius: inherit;
     border: 1px solid rgba(175,208,255,0.65);
     opacity: 0;
@@ -167,13 +155,12 @@ body {
     animation: ringWave 1.8s ease-out infinite;
 }
 
-/* 進捗バー */
+/* 進捗バー（シーク可） */
 .sound-progress {
     width: 100%;
-    max-width: 260px;
-    height: 3px;
+    height: 4px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.14);
     overflow: hidden;
     position: relative;
     cursor: pointer;
@@ -185,11 +172,10 @@ body {
     inset: 0;
     background: linear-gradient(90deg,
         rgba(255,255,255,0.0),
-        rgba(255,255,255,0.18),
+        rgba(255,255,255,0.2),
         rgba(255,255,255,0.0)
     );
-    opacity: 0.7;
-    mix-blend-mode: screen;
+    opacity: 0.5;
     pointer-events: none;
 }
 
@@ -198,13 +184,13 @@ body {
     width: 0%;
     border-radius: inherit;
     background: linear-gradient(90deg, #8fd1ff, #b0b8ff, #ffb5f9);
-    transition: width 0.08s linear;
+    transition: width 0.05s linear;
 }
 
 /* オーブアニメーション */
 @keyframes orbPulse {
-    0%   { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(134,182,255,0.7), 0 20px 45px rgba(0,0,0,0.8); }
-    50%  { transform: scale(1.06); box-shadow: 0 0 0 18px rgba(134,182,255,0.0), 0 26px 55px rgba(0,0,0,0.95); }
+    0%   { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(134,182,255,0.7), 0 18px 40px rgba(0,0,0,0.8); }
+    50%  { transform: scale(1.05); box-shadow: 0 0 0 14px rgba(134,182,255,0.0), 0 24px 48px rgba(0,0,0,0.95); }
     100% { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(134,182,255,0.0), 0 18px 40px rgba(0,0,0,0.8); }
 }
 
@@ -228,20 +214,20 @@ body {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(0,0,0,0.95));
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
 }
 
 .image-modal img {
     position: relative;
     max-width: 92vw;
     max-height: 86vh;
-    border-radius: 24px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+    border-radius: 22px;
+    box-shadow: 0 26px 70px rgba(0,0,0,0.9);
     object-fit: contain;
     transform: scale(0.96);
     opacity: 0;
-    transition: opacity 0.35s ease, transform 0.35s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .image-modal.open {
@@ -253,25 +239,28 @@ body {
     transform: scale(1);
 }
 
-/* スマホ向け微調整 */
+/* スマホ調整 */
 @media (max-width: 768px) {
     .canvas {
-        padding-top: 24px;
-        padding-bottom: 40px;
-        gap: 28px;
+        padding: 24px 10px 36px;
+        gap: 22px;
     }
 
     .message {
-        max-width: 82%;
+        max-width: 86%;
+    }
+
+    .photo-wrapper {
+        max-width: 100%;
     }
 
     .message-sound .sound-wrapper {
-        align-items: center;
+        max-width: 280px;
     }
 
     .sound-orb {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
     }
 }
 
