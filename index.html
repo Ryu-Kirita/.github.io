@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="canvas">
+
+    <!-- Pair 1 -->
+    <section class="pair">
+        <div class="photo-wrapper">
+            <img src="images/photo1.jpg" class="photo" alt="">
+        </div>
+        <div class="sound-wrapper">
+            <button class="sound-orb" data-audio="audio1">
+                <span class="orb-core"></span>
+                <span class="orb-ring"></span>
+            </button>
+            <div class="sound-progress">
+                <div class="sound-progress-fill" data-progress="audio1"></div>
+            </div>
+            <audio id="audio1" src="music/music1.mp3"></audio>
+        </div>
+    </section>
+
+    <!-- Pair 2 -->
+    <section class="pair">
+        <div class="photo-wrapper">
+            <img src="images/photo2.jpg" class="photo" alt="">
+        </div>
+        <div class="sound-wrapper">
+            <button class="sound-orb" data-audio="audio2">
+                <span class="orb-core"></span>
+                <span class="orb-ring"></span>
+            </button>
+            <div class="sound-progress">
+                <div class="sound-progress-fill" data-progress="audio2"></div>
+            </div>
+            <audio id="audio2" src="music/music2.mp3"></audio>
+        </div>
+    </section>
+
+    <!-- Pair 3 -->
+    <section class="pair">
+        <div class="photo-wrapper">
+            <img src="images/photo3.jpg" class="photo" alt="">
+        </div>
+        <div class="sound-wrapper">
+            <button class="sound-orb" data-audio="audio3">
+                <span class="orb-core"></span>
+                <span class="orb-ring"></span>
+            </button>
+            <div class="sound-progress">
+                <div class="sound-progress-fill" data-progress="audio3"></div>
+            </div>
+            <audio id="audio3" src="music/music3.mp3"></audio>
+        </div>
+    </section>
+
+    <!-- Pair 4 -->
+    <section class="pair">
+        <div class="photo-wrapper">
+            <img src="images/photo4.jpg" class="photo" alt="">
+        </div>
+        <div class="sound-wrapper">
+            <button class="sound-orb" data-audio="audio4">
+                <span class="orb-core"></span>
+                <span class="orb-ring"></span>
+            </button>
+            <div class="sound-progress">
+                <div class="sound-progress-fill" data-progress="audio4"></div>
+            </div>
+            <audio id="audio4" src="music/music4.mp3"></audio>
+        </div>
+    </section>
+
+</div>
+
+<!-- 画像拡大用モーダル（文字なし） -->
+<div class="image-modal" id="image-modal">
+    <div class="image-modal-backdrop"></div>
+    <img id="modal-image" alt="">
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
