@@ -10,91 +10,153 @@
 
 <div class="canvas">
 
+    <!-- 会話開始の日付 -->
+    <div class="conversation-date">2025/04/21</div>
+
     <!-- Pair 1 -->
     <section class="pair">
-        <!-- 写真（左） -->
-        <div class="message message-photo message-left">
-            <div class="photo-wrapper">
-                <img src="images/photo1.jpeg" class="photo" alt="">
+
+        <!-- 写真（相手） -->
+        <div class="message-row message-row-left">
+            <div class="avatar avatar-left">
+                <img src="icons/other.jpeg" alt="">
+            </div>
+            <div class="message message-photo">
+                <div class="photo-wrapper">
+                    <img src="images/photo1.jpeg" class="photo" alt="">
+                    <div class="bubble-time bubble-time-right">20:11</div>
+                </div>
             </div>
         </div>
 
-        <!-- 音（右） -->
-        <div class="message message-sound message-right">
-            <div class="sound-wrapper">
-                <button class="sound-orb" data-audio="audio1">
-                    <span class="orb-core"></span>
-                    <span class="orb-ring"></span>
-                </button>
-                <div class="sound-progress" data-audio="audio1">
-                    <div class="sound-progress-fill" data-progress="audio1"></div>
+        <!-- 音（自分） -->
+        <div class="message-row message-row-right">
+            <div class="message message-sound">
+                <div class="sound-wrapper">
+                    <button class="sound-orb" data-audio="audio1">
+                        <span class="orb-core"></span>
+                        <span class="orb-ring"></span>
+                    </button>
+                    <div class="sound-progress" data-audio="audio1">
+                        <div class="sound-progress-fill" data-progress="audio1"></div>
+                    </div>
+                    <div class="bubble-time bubble-time-left">20:13</div>
+                    <audio id="audio1" src="music/music1.mp3"></audio>
                 </div>
-                <audio id="audio1" src="music/music1.mp3"></audio>
+            </div>
+            <div class="avatar avatar-right">
+                <img src="icons/me.jpeg" alt="">
             </div>
         </div>
+
     </section>
 
     <!-- Pair 2 -->
     <section class="pair">
-        <div class="message message-photo message-left">
-            <div class="photo-wrapper">
-                <img src="images/photo2.jpeg" class="photo" alt="">
+
+        <div class="message-row message-row-left">
+            <div class="avatar avatar-left">
+                <img src="icons/other.jpeg" alt="">
             </div>
-        </div>
-        <div class="message message-sound message-right">
-            <div class="sound-wrapper">
-                <button class="sound-orb" data-audio="audio2">
-                    <span class="orb-core"></span>
-                    <span class="orb-ring"></span>
-                </button>
-                <div class="sound-progress" data-audio="audio2">
-                    <div class="sound-progress-fill" data-progress="audio2"></div>
+            <div class="message message-photo">
+                <div class="photo-wrapper">
+                    <img src="images/photo2.jpeg" class="photo" alt="">
+                    <div class="bubble-time bubble-time-right">20:24</div>
                 </div>
-                <audio id="audio2" src="music/music2.mp3"></audio>
             </div>
         </div>
+
+        <div class="message-row message-row-right">
+            <div class="message message-sound">
+                <div class="sound-wrapper">
+                    <button class="sound-orb" data-audio="audio2">
+                        <span class="orb-core"></span>
+                        <span class="orb-ring"></span>
+                    </button>
+                    <div class="sound-progress" data-audio="audio2">
+                        <div class="sound-progress-fill" data-progress="audio2"></div>
+                    </div>
+                    <div class="bubble-time bubble-time-left">20:27</div>
+                    <audio id="audio2" src="music/music2.mp3"></audio>
+                </div>
+            </div>
+            <div class="avatar avatar-right">
+                <img src="icons/me.jpeg" alt="">
+            </div>
+        </div>
+
     </section>
 
     <!-- Pair 3 -->
     <section class="pair">
-        <div class="message message-photo message-left">
-            <div class="photo-wrapper">
-                <img src="images/photo3.jpeg" class="photo" alt="">
+
+        <div class="message-row message-row-left">
+            <div class="avatar avatar-left">
+                <img src="icons/other.jpeg" alt="">
             </div>
-        </div>
-        <div class="message message-sound message-right">
-            <div class="sound-wrapper">
-                <button class="sound-orb" data-audio="audio3">
-                    <span class="orb-core"></span>
-                    <span class="orb-ring"></span>
-                </button>
-                <div class="sound-progress" data-audio="audio3">
-                    <div class="sound-progress-fill" data-progress="audio3"></div>
+            <div class="message message-photo">
+                <div class="photo-wrapper">
+                    <img src="images/photo3.jpeg" class="photo" alt="">
+                    <div class="bubble-time bubble-time-right">21:02</div>
                 </div>
-                <audio id="audio3" src="music/music3.mp3"></audio>
             </div>
         </div>
+
+        <div class="message-row message-row-right">
+            <div class="message message-sound">
+                <div class="sound-wrapper">
+                    <button class="sound-orb" data-audio="audio3">
+                        <span class="orb-core"></span>
+                        <span class="orb-ring"></span>
+                    </button>
+                    <div class="sound-progress" data-audio="audio3">
+                        <div class="sound-progress-fill" data-progress="audio3"></div>
+                    </div>
+                    <div class="bubble-time bubble-time-left">21:05</div>
+                    <audio id="audio3" src="music/music3.mp3"></audio>
+                </div>
+            </div>
+            <div class="avatar avatar-right">
+                <img src="icons/me.jpeg" alt="">
+            </div>
+        </div>
+
     </section>
 
     <!-- Pair 4 -->
     <section class="pair">
-        <div class="message message-photo message-left">
-            <div class="photo-wrapper">
-                <img src="images/photo4.jpeg" class="photo" alt="">
+
+        <div class="message-row message-row-left">
+            <div class="avatar avatar-left">
+                <img src="icons/other.jpeg" alt="">
             </div>
-        </div>
-        <div class="message message-sound message-right">
-            <div class="sound-wrapper">
-                <button class="sound-orb" data-audio="audio4">
-                    <span class="orb-core"></span>
-                    <span class="orb-ring"></span>
-                </button>
-                <div class="sound-progress" data-audio="audio4">
-                    <div class="sound-progress-fill" data-progress="audio4"></div>
+            <div class="message message-photo">
+                <div class="photo-wrapper">
+                    <img src="images/photo4.jpeg" class="photo" alt="">
+                    <div class="bubble-time bubble-time-right">21:44</div>
                 </div>
-                <audio id="audio4" src="music/music4.mp3"></audio>
             </div>
         </div>
+
+        <div class="message-row message-row-right">
+            <div class="message message-sound">
+                <div class="sound-wrapper">
+                    <button class="sound-orb" data-audio="audio4">
+                        <span class="orb-core"></span>
+                        <span class="orb-ring"></span>
+                    </button>
+                    <div class="sound-progress" data-audio="audio4">
+                        <div class="sound-progress-fill" data-progress="audio4"></div>
+                    </div>
+                    <div class="bubble-time bubble-time-left">21:48</div>
+                    <audio id="audio4" src="music/music4.mp3"></audio>
+                </div>
+            </div>
+            <div class="avatar avatar-right">
+                <img src="icons/me.jpeg" alt="">
+            </div>
+        </div>
+
     </section>
 
 </div>
@@ -108,4 +170,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
