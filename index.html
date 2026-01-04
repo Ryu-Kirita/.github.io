@@ -215,6 +215,18 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const dots = document.querySelector(".typing-dots");
+    let count = 1;
+
+    setInterval(() => {
+        dots.textContent = ".".repeat(count);
+        count = (count % 3) + 1;
+    }, 400);
+});
+</script>
+
 </body>
 </html>
 
