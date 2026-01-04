@@ -28,7 +28,6 @@
                         <img src="images/photo1.jpeg" class="photo" alt="">
                     </div>
                 </div>
-                <!-- 写真の右下外側に時刻 -->
                 <div class="bubble-time-outside bubble-time-outside-right">14:11</div>
             </div>
         </div>
@@ -47,7 +46,7 @@
                             <span class="orb-ring"></span>
                         </button>
 
-                        <!-- ★波形 -->
+                        <!-- 波形（固定表示） -->
                         <div class="waveform" data-wave="audio1">
                             <span></span><span></span><span></span><span></span><span></span>
                             <span></span><span></span><span></span><span></span><span></span>
@@ -62,7 +61,6 @@
                     </div>
                 </div>
 
-                <!-- 音の左下外側に時刻 -->
                 <div class="bubble-time-outside bubble-time-outside-left">23:00</div>
             </div>
 
@@ -228,7 +226,7 @@
             </div>
         </div>
 
-        <!-- ★入力中（相手） -->
+        <!-- 入力中（相手） -->
         <div class="message-row message-row-left typing-row">
             <div class="avatar avatar-left">
                 <img src="icons/other.jpeg" alt="">
@@ -236,7 +234,7 @@
 
             <div class="message-wrapper-left">
                 <div class="message message-typing">
-                    <span class="typing-text">入力中</span><span class="typing-dots">...</span>
+                    <span class="typing-text">入力中</span><span class="typing-dots">.</span>
                 </div>
             </div>
         </div>
@@ -252,7 +250,7 @@
 </div>
 
 
-<!-- ✅ JS：音声再生 + 波形踊る + 進捗バー + シーク -->
+<!-- ✅ JS：音声再生 + 進捗バー + シーク + 入力中ドット増減 -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const buttons = document.querySelectorAll(".sound-orb");
@@ -261,7 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const audioId = btn.dataset.audio;
         const audio = document.getElementById(audioId);
         const progressFill = document.querySelector(`[data-progress="${audioId}"]`);
-        const waveform = document.querySelector(`[data-wave="${audioId}"]`);
         const progressBar = document.querySelector(`.sound-progress[data-audio="${audioId}"]`);
 
         // 再生/停止
@@ -274,20 +271,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     a.currentTime = 0;
                 }
             });
-            document.querySelectorAll(".waveform").forEach(w => w.classList.remove("playing"));
 
             if (audio.paused) {
                 audio.play();
-                waveform.classList.add("playing");
             } else {
                 audio.pause();
-                waveform.classList.remove("playing");
             }
         });
 
         // 再生終了時
         audio.addEventListener("ended", () => {
-            waveform.classList.remove("playing");
             progressFill.style.width = "0%";
         });
 
@@ -306,19 +299,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ✅ 入力中「...」点滅（タイピング感）
+    // ✅ 入力中「. → .. → ... → .」変化
     const dots = document.querySelector(".typing-dots");
     if (dots) {
-        let visible = true;
+        let count = 1;
         setInterval(() => {
-            visible = !visible;
-            dots.style.opacity = visible ? "1" : "0";
-        }, 450);
+            dots.textContent = ".".repeat(count);
+            count = (count % 3) + 1;
+        }, 400);
     }
 });
 </script>
 
 </body>
 </html>
-
-
