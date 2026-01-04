@@ -40,13 +40,24 @@
             <div class="message-wrapper-right">
                 <div class="message message-sound">
                     <div class="sound-wrapper">
+
+                        <!-- 再生ボタン -->
                         <button class="sound-orb" data-audio="audio1">
                             <span class="orb-core"></span>
                             <span class="orb-ring"></span>
                         </button>
+
+                        <!-- ★波形 -->
+                        <div class="waveform" data-wave="audio1">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+
+                        <!-- 進行バー -->
                         <div class="sound-progress" data-audio="audio1">
                             <div class="sound-progress-fill" data-progress="audio1"></div>
                         </div>
+
                         <audio id="audio1" src="music/music1.mp3"></audio>
                     </div>
                 </div>
@@ -87,16 +98,25 @@
             <div class="message-wrapper-right">
                 <div class="message message-sound">
                     <div class="sound-wrapper">
+
                         <button class="sound-orb" data-audio="audio2">
                             <span class="orb-core"></span>
                             <span class="orb-ring"></span>
                         </button>
+
+                        <div class="waveform" data-wave="audio2">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+
                         <div class="sound-progress" data-audio="audio2">
                             <div class="sound-progress-fill" data-progress="audio2"></div>
                         </div>
+
                         <audio id="audio2" src="music/music2.mp3"></audio>
                     </div>
                 </div>
+
                 <div class="bubble-time-outside bubble-time-outside-left">22:33</div>
             </div>
 
@@ -131,16 +151,25 @@
             <div class="message-wrapper-right">
                 <div class="message message-sound">
                     <div class="sound-wrapper">
+
                         <button class="sound-orb" data-audio="audio3">
                             <span class="orb-core"></span>
                             <span class="orb-ring"></span>
                         </button>
+
+                        <div class="waveform" data-wave="audio3">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+
                         <div class="sound-progress" data-audio="audio3">
                             <div class="sound-progress-fill" data-progress="audio3"></div>
                         </div>
+
                         <audio id="audio3" src="music/music3.mp3"></audio>
                     </div>
                 </div>
+
                 <div class="bubble-time-outside bubble-time-outside-left">23:48</div>
             </div>
 
@@ -172,16 +201,25 @@
             <div class="message-wrapper-right">
                 <div class="message message-sound">
                     <div class="sound-wrapper">
+
                         <button class="sound-orb" data-audio="audio4">
                             <span class="orb-core"></span>
                             <span class="orb-ring"></span>
                         </button>
+
+                        <div class="waveform" data-wave="audio4">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+
                         <div class="sound-progress" data-audio="audio4">
                             <div class="sound-progress-fill" data-progress="audio4"></div>
                         </div>
+
                         <audio id="audio4" src="music/music4.mp3"></audio>
                     </div>
                 </div>
+
                 <div class="bubble-time-outside bubble-time-outside-left">21:48</div>
             </div>
 
@@ -190,19 +228,18 @@
             </div>
         </div>
 
-        <!-- タイピング中（相手） -->
+        <!-- ★入力中（相手） -->
         <div class="message-row message-row-left typing-row">
             <div class="avatar avatar-left">
                 <img src="icons/other.jpeg" alt="">
             </div>
-        
+
             <div class="message-wrapper-left">
                 <div class="message message-typing">
                     <span class="typing-text">入力中</span><span class="typing-dots">...</span>
                 </div>
             </div>
         </div>
-
 
     </section>
 
@@ -214,19 +251,74 @@
     <img id="modal-image" alt="">
 </div>
 
-<script src="script.js"></script>
+
+<!-- ✅ JS：音声再生 + 波形踊る + 進捗バー + シーク -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const dots = document.querySelector(".typing-dots");
-    let count = 1;
+    const buttons = document.querySelectorAll(".sound-orb");
 
-    setInterval(() => {
-        dots.textContent = ".".repeat(count);
-        count = (count % 3) + 1;
-    }, 400);
+    buttons.forEach(btn => {
+        const audioId = btn.dataset.audio;
+        const audio = document.getElementById(audioId);
+        const progressFill = document.querySelector(`[data-progress="${audioId}"]`);
+        const waveform = document.querySelector(`[data-wave="${audioId}"]`);
+        const progressBar = document.querySelector(`.sound-progress[data-audio="${audioId}"]`);
+
+        // 再生/停止
+        btn.addEventListener("click", () => {
+
+            // 他の音声が鳴ってたら止める
+            document.querySelectorAll("audio").forEach(a => {
+                if (a !== audio) {
+                    a.pause();
+                    a.currentTime = 0;
+                }
+            });
+            document.querySelectorAll(".waveform").forEach(w => w.classList.remove("playing"));
+
+            if (audio.paused) {
+                audio.play();
+                waveform.classList.add("playing");
+            } else {
+                audio.pause();
+                waveform.classList.remove("playing");
+            }
+        });
+
+        // 再生終了時
+        audio.addEventListener("ended", () => {
+            waveform.classList.remove("playing");
+            progressFill.style.width = "0%";
+        });
+
+        // 進捗更新
+        audio.addEventListener("timeupdate", () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = `${percent}%`;
+        });
+
+        // 進捗バークリックでシーク
+        progressBar.addEventListener("click", (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const ratio = clickX / rect.width;
+            audio.currentTime = audio.duration * ratio;
+        });
+    });
+
+    // ✅ 入力中「...」点滅（タイピング感）
+    const dots = document.querySelector(".typing-dots");
+    if (dots) {
+        let visible = true;
+        setInterval(() => {
+            visible = !visible;
+            dots.style.opacity = visible ? "1" : "0";
+        }, 450);
+    }
 });
 </script>
 
 </body>
 </html>
+
 
