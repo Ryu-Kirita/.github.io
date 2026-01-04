@@ -259,3 +259,45 @@ body {
     }
 }
 
+/* ---- typing bubble ---- */
+.message-typing {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+    max-width: 200px;
+}
+
+/* 吹き出しのしっぽ（左側） */
+.message-typing::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 14px;
+    border-width: 8px 8px 8px 0;
+    border-style: solid;
+    border-color: transparent #ddd transparent transparent;
+}
+
+.message-typing::after {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 14px;
+    border-width: 8px 8px 8px 0;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+}
+
+/* typing dots */
+.typing-dots {
+    display: inline-block;
+    margin-left: 4px;
+    letter-spacing: 2px;
+}
+
+
