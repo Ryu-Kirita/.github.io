@@ -300,4 +300,111 @@ body {
     letter-spacing: 2px;
 }
 
+/* ==========================
+   Capsule + Dancing Waveform
+   ========================== */
+
+/* 音声の吹き出しを横長カプセルに */
+.message-sound .sound-wrapper {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 360px;
+}
+
+/* 再生ボタンを小さく */
+.sound-orb {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: none;
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.sound-orb:hover {
+    transform: translateY(-1px) scale(1.05);
+    background: rgba(255,255,255,0.18);
+}
+
+/* orb-core を ▶︎ に変更（再生ボタン風） */
+.orb-core {
+    width: 0;
+    height: 0;
+    border-left: 12px solid rgba(255,255,255,0.9);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    background: none;
+    border-radius: 0;
+}
+
+/* orb-ring は使わないので非表示（ホログラムを残すなら消さなくてもOK） */
+.orb-ring {
+    display: none;
+}
+
+/* 波形 */
+.waveform {
+    flex: 1;
+    display: flex;
+    gap: 4px;
+    height: 26px;
+    align-items: flex-end;
+}
+
+.waveform span {
+    width: 4px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.65);
+    transition: height 0.18s ease;
+}
+
+/* 再生中は踊る */
+.waveform.playing span {
+    animation: waveDance 0.9s ease-in-out infinite;
+}
+
+/* バラバラに踊らせる */
+.waveform.playing span:nth-child(2) { animation-delay: 0.05s; }
+.waveform.playing span:nth-child(3) { animation-delay: 0.10s; }
+.waveform.playing span:nth-child(4) { animation-delay: 0.15s; }
+.waveform.playing span:nth-child(5) { animation-delay: 0.20s; }
+.waveform.playing span:nth-child(6) { animation-delay: 0.10s; }
+.waveform.playing span:nth-child(7) { animation-delay: 0.18s; }
+.waveform.playing span:nth-child(8) { animation-delay: 0.07s; }
+.waveform.playing span:nth-child(9) { animation-delay: 0.12s; }
+.waveform.playing span:nth-child(10){ animation-delay: 0.16s; }
+
+@keyframes waveDance {
+    0%,100% { height: 8px; opacity: 0.55; }
+    50% { height: 26px; opacity: 1; }
+}
+
+/* 進捗バー（細めでカプセルに合うように） */
+.sound-progress {
+    width: 80px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.sound-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #8fd1ff, #b0b8ff, #ffb5f9);
+}
+
+
 
